@@ -13,8 +13,8 @@ A web-based image file renaming utility that allows users to:
 
 ## Scope & User Context
 - **Users**: Personal use (single user)
-- **Hosting**: Will be determined by hosting-advisor skill
-- **Deployment**: Static site deployment
+- **Hosting**: ✅ DECIDED - Cloudflare Pages (see docs/deployment-decision.md)
+- **Deployment**: Static site deployment via GitHub → Cloudflare Pages
 - **Timeline**: Learning pace (weeks, education priority)
 
 ---
@@ -33,7 +33,7 @@ Image Parsing: piexifjs or sharp-wasm (EXIF extraction)
 State Mgmt:   React hooks (useState, useCallback) + Context API
 File Handling: Web File API, Blob, ArrayBuffer
 Testing:      Vitest + React Testing Library
-Deployment:   Static hosting (TBD by hosting-advisor)
+Deployment:   Cloudflare Pages (free tier, unlimited bandwidth)
 ```
 
 ### Why This Stack
@@ -54,11 +54,11 @@ Deployment:   Static hosting (TBD by hosting-advisor)
 - Understanding when backend is NOT needed
 
 **Infrastructure Alignment:**
-- Static site hosting (cheapest option, ~$0-5/month)
-- Works with Hostinger static hosting
-- Can deploy to Netlify/Vercel if preferred
+- Static site hosting on Cloudflare Pages ($0/month)
+- Integrates with existing Cloudflare DNS setup
+- Global CDN for fast performance worldwide
 - Zero backend maintenance burden
-- Scales naturally (no server load)
+- Scales naturally (no server load, unlimited bandwidth)
 
 ---
 
@@ -126,9 +126,10 @@ Deployment:   Static hosting (TBD by hosting-advisor)
 
 ### Cost Profile
 - Initial setup: $0 (all tools free)
-- Monthly hosting: $0-5 (static site)
+- Monthly hosting: $0 (Cloudflare Pages free tier)
 - No external services required
 - Development tools: VS Code, Node.js, npm (all free)
+- Total monthly cost: $0
 
 ---
 
@@ -151,22 +152,31 @@ Deployment:   Static hosting (TBD by hosting-advisor)
 
 ---
 
-## Next Steps for Hosting-Advisor
+## Deployment Decision: ✅ COMPLETED
 
-When invoking hosting-advisor skill, provide:
+**Decision**: Cloudflare Pages (Free Tier)
 
-1. **Stack Being Used**: React + Vite (static site)
-2. **Deployment Type**: Static site hosting (no server-side code)
-3. **User Context**: Personal project, self-hosted infrastructure available (Hostinger VPS)
-4. **Infrastructure**: Existing Hostinger VPS, Cloudflare DNS available
-5. **Cost Constraints**: Minimal (looking for efficient, low-cost solution)
-6. **Timeline**: Learning pace, no urgent deadline
+**Rationale**:
+- $0/month with unlimited bandwidth
+- Global CDN for fast performance worldwide
+- Automatic builds and deployments from GitHub
+- Integrates seamlessly with existing Cloudflare DNS
+- Zero maintenance burden (fully managed)
+- Perfect for static React + Vite sites
 
-**Questions for Hosting-Advisor**:
-- Should I use Hostinger static hosting or Netlify/Vercel?
-- What are the trade-offs between self-hosting on VPS vs. managed static hosting?
-- How does static site deployment work on Hostinger?
-- What's the simplest path from local development to deployed site?
+**Deployment Workflow**:
+1. Push code to GitHub (main branch)
+2. Cloudflare Pages automatically builds (npm run build)
+3. Site deploys globally in 1-2 minutes
+4. Rollback via Cloudflare UI if needed
+
+**Alternatives Considered**:
+- Netlify: Similar, but 100GB bandwidth limit
+- Vercel: Great for Next.js, bandwidth limits
+- Hostinger VPS: More maintenance, learning opportunity
+- GitHub Pages: No build automation for Vite
+
+**Full Details**: See [docs/deployment-decision.md](docs/deployment-decision.md)
 
 ---
 
@@ -185,6 +195,10 @@ After hosting-advisor decision, project-starter should scaffold:
 
 ## Summary
 
-**Chosen Path**: React + Vite for a modern, learning-focused web app that processes images entirely client-side. Aligns with all stated requirements (simple, client-side, learning the "why"), minimizes infrastructure complexity, and maximizes learning value.
+**Tech Stack**: React + Vite for a modern, learning-focused web app that processes images entirely client-side. Aligns with all stated requirements (simple, client-side, learning the "why"), minimizes infrastructure complexity, and maximizes learning value.
 
-**Ready For**: Hosting-advisor skill to determine deployment strategy.
+**Deployment**: Cloudflare Pages for zero-cost, globally-distributed static site hosting with automatic builds from GitHub.
+
+**Status**: ✅ Tech stack decided | ✅ Deployment decided | 🔄 Ready for project-starter
+
+**Next Step**: Invoke project-starter skill to scaffold the application with React + Vite + TypeScript structure, components, business logic, and deployment configuration.
