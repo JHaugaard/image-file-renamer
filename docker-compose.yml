@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    stdin_open: true
+    tty: true
+
+  # Optional: Add a simple HTTP server for production build testing
+  # Uncomment to test production builds locally
+  # preview:
+  #   image: nginx:alpine
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - ./dist:/usr/share/nginx/html:ro
+  #   depends_on:
+  #     - app
+
+# Note: This is an OPTIONAL development setup
+# You can also run the app directly with: npm run dev
+# Docker is provided for:
+# 1. Consistent Node.js version across machines (MacBook Pro & Mac Mini)
+# 2. Isolated development environment
+# 3. Easy cleanup (docker compose down -v)
+#
+# To use:
+#   docker compose up -d    # Start dev server
+#   docker compose logs -f  # View logs
+#   docker compose down     # Stop server

@@ -180,25 +180,161 @@ Deployment:   Cloudflare Pages (free tier, unlimited bandwidth)
 
 ---
 
-## Context for Project-Starter
+## Project Spinup: ✅ COMPLETED
 
-After hosting-advisor decision, project-starter should scaffold:
+**Status**: ✅ Foundation created via project-spinup skill (Guided Setup mode)
 
-1. **Project Structure**: React + Vite + TypeScript
-2. **Core Components**: DragDropZone, PreviewTable, DownloadButton
-3. **Business Logic**: DateParser, FilenameGenerator, CollisionDetector
-4. **Dependencies**: React, Vite, Tailwind, piexifjs, testing libraries
-5. **Development Workflow**: Hot reload, testing setup, build optimization
-6. **Documentation**: README with how to run locally, how to use app, development guide
+**Spinup Approach**: **Guided Setup** (12-step incremental learning path)
+
+### What Was Generated
+
+✅ **[claude.md](../claude.md)** - Comprehensive project context with 12-step guided setup
+- Complete development workflow documentation
+- 12 detailed learning steps with explanations
+- Code conventions and best practices
+- Troubleshooting guide
+- Deployment instructions
+
+✅ **[docker-compose.yml](../docker-compose.yml)** - Optional containerized dev environment
+✅ **Directory structure** - src/, tests/{unit,components,integration}/, docs/, public/
+✅ **[.gitignore](../.gitignore)** - Node.js/React/Vite appropriate
+✅ **[.env.example](../.env.example)** - Environment variable template
+✅ **[README.md](../README.md)** - Quick start and setup instructions
+✅ **[package.json](../package.json)** - Dependencies and scripts configured
+
+### Project Foundation Files
+
+```
+image-file-renamer/
+├── claude.md              ← MAIN REFERENCE: Read this for guided setup
+├── README.md              ← Quick start guide
+├── package.json           ← React 18, Vite, TypeScript, Tailwind, Vitest
+├── docker-compose.yml     ← Optional Docker dev environment
+├── .gitignore
+├── .env.example
+├── src/                   ← Source code (empty, ready for Step 1)
+├── tests/                 ← Tests (unit/, components/, integration/)
+│   ├── unit/
+│   ├── components/
+│   └── integration/
+├── docs/                  ← Project documentation
+│   ├── image-renamer-brief.md
+│   ├── tech-stack-decision.md
+│   └── deployment-decision.md
+└── public/                ← Static assets
+```
+
+### Git Repository Status
+
+**Not yet initialized** - User should run:
+```bash
+cd /Volumes/dev/develop-sandbox/image-file-renamer
+git init
+git checkout -b main
+git add .
+git commit -m "chore: initial project setup via project-spinup skill"
+git checkout -b dev
+```
+
+---
+
+## Guided Setup: 12-Step Learning Path
+
+The project is ready for incremental development. All steps are documented in [claude.md](../claude.md) under "Next Steps (Guided Setup)".
+
+### Step-by-Step Overview
+
+1. **Initialize Vite + React + TypeScript** (~20 min)
+   - Create vite.config.ts, tsconfig.json, Tailwind config, ESLint, Prettier
+   - Set up initial React app structure
+
+2. **Set Up TypeScript Types** (~15 min)
+   - Define FileMetadata, ParsedDate, RenameResult interfaces
+   - Create type-safe application structure
+
+3. **Implement Date Parsing Logic** (~45 min)
+   - Build filenameParser.ts (regex patterns)
+   - Build exifParser.ts (EXIF metadata extraction)
+   - Build fallbackParser.ts (file system dates)
+   - Write unit tests (TDD approach)
+
+4. **Implement Filename Generation** (~30 min)
+   - Build filenameGenerator.ts (YYYY-MM-DD format)
+   - Build collisionDetector.ts (sequence numbers for duplicates)
+   - Write unit tests
+
+5. **Create File Upload Components** (~45 min)
+   - Build DragDropZone.tsx (drag-drop with visual feedback)
+   - Build FileInput.tsx (traditional file picker)
+   - Style with Tailwind CSS
+
+6. **Create Preview Table** (~45 min)
+   - Build PreviewTable.tsx (before/after table)
+   - Build FileRow.tsx (individual file preview)
+   - Build ProblematicFileRow.tsx (error display)
+
+7. **Implement File Processing Hook** (~60 min)
+   - Create useFileProcessor.ts custom hook
+   - Orchestrate parsing, generation, collision detection
+   - Manage complex state with useReducer
+
+8. **Create Download Components** (~30 min)
+   - Build DownloadButton.tsx
+   - Build CancelButton.tsx
+   - Implement Blob creation and download logic
+
+9. **Assemble Application** (~30 min)
+   - Build Header.tsx and Footer.tsx
+   - Wire up all components in App.tsx
+   - Complete user flow
+
+10. **Add Integration Tests** (~45 min)
+    - Test complete workflow
+    - Add error boundaries
+    - Improve error handling
+
+11. **Optimize Performance & Accessibility** (~30 min)
+    - Add useMemo/useCallback optimizations
+    - Ensure keyboard navigation
+    - Add ARIA labels
+    - Run Lighthouse audit
+
+12. **Documentation & Deployment Prep** (~30 min)
+    - Finalize README
+    - Add code comments
+    - Create deployment checklist
+    - Build production bundle
+
+**Total Time**: 6-8 hours spread across multiple sessions
+
+### First Prompt for New Session
+
+When starting a new session, copy this prompt to Claude Code:
+
+```
+Set up the Vite + React + TypeScript project structure as specified in claude.md. Include Tailwind CSS configuration, ESLint, Prettier, and Vitest. Please explain the purpose of each major configuration file as you create them.
+```
+
+This corresponds to **Step 1** in the guided setup.
 
 ---
 
 ## Summary
 
-**Tech Stack**: React + Vite for a modern, learning-focused web app that processes images entirely client-side. Aligns with all stated requirements (simple, client-side, learning the "why"), minimizes infrastructure complexity, and maximizes learning value.
+**Tech Stack**: React 18 + Vite + TypeScript for a modern, learning-focused web app that processes images entirely client-side.
 
 **Deployment**: Cloudflare Pages for zero-cost, globally-distributed static site hosting with automatic builds from GitHub.
 
-**Status**: ✅ Tech stack decided | ✅ Deployment decided | 🔄 Ready for project-starter
+**Development Approach**: Guided Setup (12 incremental steps with explanations)
 
-**Next Step**: Invoke project-starter skill to scaffold the application with React + Vite + TypeScript structure, components, business logic, and deployment configuration.
+**Skills Workflow Status**:
+- ✅ Phase 0: project-brief-writer
+- ✅ Phase 1: tech-stack-advisor
+- ✅ Phase 2: deployment-advisor
+- ✅ Phase 3: project-spinup ← **JUST COMPLETED**
+
+**Current Status**: 🎓 **Foundation ready, ready to begin Step 1 of guided setup**
+
+**Next Action**: Start new session and give Claude Code the first prompt (Step 1) to initialize Vite + React + TypeScript project structure.
+
+**Main Reference**: [claude.md](../claude.md) - Contains all 12 steps with detailed instructions, learning objectives, and verification steps.
