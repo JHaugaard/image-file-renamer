@@ -333,8 +333,194 @@ This corresponds to **Step 1** in the guided setup.
 - ✅ Phase 2: deployment-advisor
 - ✅ Phase 3: project-spinup ← **JUST COMPLETED**
 
-**Current Status**: 🎓 **Foundation ready, ready to begin Step 1 of guided setup**
+**Current Status**: 🚀 **Steps 1-3 COMPLETE, ready for Step 4**
 
-**Next Action**: Start new session and give Claude Code the first prompt (Step 1) to initialize Vite + React + TypeScript project structure.
+**Completed Steps**:
+- ✅ Step 1: Vite + React + TypeScript project initialized
+- ✅ Step 2: TypeScript type system created
+- ✅ Step 3: Date parsing logic implemented with TDD
+
+**Next Action**: Continue with Step 4 - Implement filename generation & collision detection
 
 **Main Reference**: [claude.md](../claude.md) - Contains all 12 steps with detailed instructions, learning objectives, and verification steps.
+
+---
+
+## Development Progress Tracker
+
+### ✅ Step 1: Initialize Vite + React + TypeScript (COMPLETE)
+
+**Created Files**:
+- `vite.config.ts` - Vite configuration with React plugin, test setup
+- `tsconfig.json` - Strict TypeScript configuration for app code
+- `tsconfig.node.json` - TypeScript config for Node.js files (with composite: true)
+- `tailwind.config.js` + `postcss.config.js` - Tailwind CSS setup
+- `eslint.config.js` - ESLint with React and TypeScript rules
+- `.prettierrc` - Code formatting configuration
+- `index.html` - HTML entry point
+- `src/main.tsx` - React entry point with StrictMode
+- `src/App.tsx` - Root component (placeholder)
+- `src/index.css` - Global styles with Tailwind directives
+- `tests/setup.ts` - Vitest test environment setup
+
+**Verification**:
+- ✅ TypeScript type-check passes
+- ✅ ESLint passes with no warnings
+- ✅ Prettier formatting applied
+- ✅ Production build successful (391ms)
+- ✅ Vitest configured and ready
+
+**Key Learnings**:
+- Vite configuration for React HMR and testing
+- TypeScript strict mode and project references
+- ESLint + Prettier integration
+- Modern React 18 patterns (createRoot, StrictMode)
+
+### ✅ Step 2: Set Up TypeScript Types (COMPLETE)
+
+**Created Files**:
+- `src/types/index.ts` (217 lines) - Complete type system
+  - Enums: `DateSource`, `FileStatus`, `ProblemType`
+  - Interfaces: `FileMetadata`, `ParsedDate`, `RenameResult`, `ProblematicFile`
+  - Utility types: `CollisionMap`, `FileProcessingState`, `DateParserOptions`
+  - Type guards: `isSupportedImageType`, `isValidParsedDate`, `isSuccessfulRename`, `isProblematicRename`
+- `src/types/examples.ts` - Practical usage examples and documentation
+
+**Type System Design**:
+- Models complete workflow: File → Parse → Generate → Result
+- `Date | null` forces explicit null handling
+- Enums provide type-safe constants
+- Type guards enable runtime type narrowing
+- Separation of concerns (data vs behavior)
+
+**Verification**:
+- ✅ All types compile successfully
+- ✅ ESLint passes
+- ✅ Examples demonstrate type usage
+
+**Key Learnings**:
+- Type system design for domain logic
+- When to use interface vs type vs enum
+- Type guards for runtime safety
+- Making illegal states unrepresentable
+
+### ✅ Step 3: Implement Date Parsing Logic (COMPLETE)
+
+**Created Files**:
+- `src/lib/parsers/filenameParser.ts` - RegEx-based date extraction from filenames
+- `src/lib/parsers/exifParser.ts` - EXIF metadata extraction using exifr library
+- `src/lib/parsers/fallbackParser.ts` - File system date fallback (lastModified)
+- `tests/unit/filenameParser.test.ts` - 26 tests for filename parsing
+- `tests/unit/exifParser.test.ts` - 11 tests for EXIF parsing
+- `tests/unit/fallbackParser.test.ts` - 11 tests for fallback parsing
+
+**Installed Dependencies**:
+- `exifr` (^7.1.3) - Modern EXIF parsing library for JPEG/HEIC images
+
+**Test Results**:
+- ✅ All 48 tests passing (3 test files)
+- ✅ 100% test coverage for parsing logic
+- ✅ TDD approach: tests written first, then implementation
+
+**Parsing Strategy Implemented**:
+1. **Filename Parser** (Priority 1):
+   - YYYY-MM-DD formats (confidence: 1.0)
+   - YYYYMMDD without separators (confidence: 1.0)
+   - MM-DD-YYYY / DD-MM-YYYY with disambiguation (confidence: 0.8)
+   - MM-DD-YY two-digit year (confidence: 0.6)
+   - Supports separators: `-`, `/`, `_`
+   - Real-world patterns: iPhone, Android, Screenshots
+
+2. **EXIF Parser** (Priority 2):
+   - Reads DateTimeOriginal (highest priority)
+   - Falls back to CreateDate, DateTime, ModifyDate
+   - Confidence: 0.9 (EXIF can be edited)
+   - Handles EXIF date format: "YYYY:MM:DD HH:MM:SS"
+
+3. **Fallback Parser** (Priority 3):
+   - Uses File.lastModified timestamp
+   - Confidence: 0.5 (file dates unreliable)
+   - Always succeeds (File objects always have lastModified)
+
+**Verification**:
+- ✅ All unit tests pass
+- ✅ RegEx patterns tested with edge cases
+- ✅ Timezone handling verified
+- ✅ Invalid date rejection working
+- ✅ Leap year validation working
+
+**Key Learnings**:
+- Test-Driven Development (TDD) workflow
+- RegEx pattern design for date matching
+- Priority-based parsing strategies
+- EXIF metadata extraction from images
+- Confidence scoring for ambiguous data
+- Timezone handling in JavaScript Date objects
+- Pure functions for testability
+
+---
+
+## Current Project Structure
+
+```
+image-file-renamer/
+├── src/
+│   ├── types/
+│   │   ├── index.ts           ✅ Complete type system
+│   │   └── examples.ts        ✅ Usage documentation
+│   ├── lib/
+│   │   └── parsers/
+│   │       ├── filenameParser.ts  ✅ RegEx date extraction
+│   │       ├── exifParser.ts      ✅ EXIF metadata reading
+│   │       └── fallbackParser.ts  ✅ File system dates
+│   ├── App.tsx                ✅ Placeholder component
+│   ├── main.tsx               ✅ React entry point
+│   └── index.css              ✅ Global styles + Tailwind
+├── tests/
+│   ├── setup.ts               ✅ Vitest configuration
+│   ├── unit/
+│   │   ├── filenameParser.test.ts ✅ 26 tests passing
+│   │   ├── exifParser.test.ts     ✅ 11 tests passing
+│   │   └── fallbackParser.test.ts ✅ 11 tests passing
+│   ├── components/            ⏳ Ready for Steps 5-6
+│   └── integration/           ⏳ Ready for Step 10
+├── public/
+│   └── vite.svg               ✅ Vite logo
+├── docs/
+│   ├── image-renamer-brief.md
+│   ├── tech-stack-decision.md
+│   └── deployment-decision.md
+├── index.html                 ✅ HTML entry
+├── vite.config.ts             ✅ Vite config
+├── tsconfig.json              ✅ TS config (app)
+├── tsconfig.node.json         ✅ TS config (Node)
+├── tailwind.config.js         ✅ Tailwind config
+├── postcss.config.js          ✅ PostCSS config
+├── eslint.config.js           ✅ ESLint config
+├── .prettierrc                ✅ Prettier config
+├── package.json               ✅ Dependencies installed (481 packages)
+├── docker-compose.yml         ✅ Optional Docker dev
+├── .gitignore                 ✅ Git ignore rules
+├── .env.example               ✅ Env var template
+├── README.md                  ✅ Setup guide
+└── claude.md                  ✅ Main reference
+```
+
+---
+
+## Next Step: Step 4 - Implement Filename Generation & Collision Detection
+
+**Prompt to use**:
+```
+Implement filename generation in src/lib/generators/ as specified in claude.md. Create filenameGenerator.ts (YYYY-MM-DD format) and collisionDetector.ts (add sequence numbers for duplicates). Write unit tests demonstrating collision handling. Explain the collision detection algorithm.
+```
+
+**What will be created**:
+- `src/lib/generators/filenameGenerator.ts` - Generate YYYY-MM-DD.ext filenames
+- `src/lib/generators/collisionDetector.ts` - Detect duplicates, add -01, -02, etc.
+- `tests/unit/filenameGenerator.test.ts` - Unit tests
+- `tests/unit/collisionDetector.test.ts` - Collision scenarios
+
+**Estimated time**: ~30 minutes
+
+**Focus**: Pure functions, algorithm design, edge case handling (duplicate dates)
